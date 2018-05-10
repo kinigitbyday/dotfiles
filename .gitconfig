@@ -1,8 +1,8 @@
 [user]
-  name = Jeff Geerling
-  email = geerlingguy@mac.com
+  name = Reid Knight
+  email = knightr565@gmail.com
 [core]
-  editor = vi
+  editor = /usr/local/bin/nvim
   excludesfile = ~/.gitignore
   autocrlf = input
 [color]
@@ -28,3 +28,5 @@
   d = diff
   dc = diff --cached
   l = log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
+  unstage = reset HEAD --
+  switch = "!f() { git checkout $1 2>/dev/null || git checkout -b $1; }; f"
