@@ -150,7 +150,7 @@ alias grd='cd "$(git rev-parse --show-toplevel)"'
 alias grc='grd;last_commit=$(echo -n $(git log -1 --pretty=%B | xargs));git reset HEAD^;git add .;git commit -m "$last_commit"'
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-DEFAULT_USER="reidknight"
+DEFAULT_USER="reid"
 export JAVA_HOME=`/usr/libexec/java_home -v '1.8*'`
 launchctl setenv JAVA_HOME $JAVA_HOME
 
