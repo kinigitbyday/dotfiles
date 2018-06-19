@@ -173,3 +173,6 @@ MAIL=0
 eval $(thefuck --alias)
 source /usr/local/opt/chtf/share/chtf/chtf.sh
 
+if [ -f ~/.bash_profile ]; then
+	source ~/.bash_profile
+fi
