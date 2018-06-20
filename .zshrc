@@ -176,3 +176,7 @@ source /usr/local/opt/chtf/share/chtf/chtf.sh
 if [ -f ~/.bash_profile ]; then
 	source ~/.bash_profile
 fi
+
+if [ -f ~/.custom_zshrc ]; then
+	source ~/.custom_zshrc
+fi
