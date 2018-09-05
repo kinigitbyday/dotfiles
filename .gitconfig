@@ -30,3 +30,5 @@
   l = log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
   unstage = reset HEAD --
   switch = "!f() { git checkout $1 2>/dev/null || git checkout -b $1; }; f"
+  changes = show --stat --oneline
+  rebase-continue = "!if git diff-index --quiet HEAD --; then git rebase --skip; else git rebase --continue; fi"
