@@ -7,7 +7,7 @@ export ZSH=~/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussellnogit"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,7 +51,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git mvn nyan redis-cli sbt scala web-search lol jira docker brew aws docker-compose adb sudo)
+plugins=(git oh-my-git mvn nyan redis-cli sbt scala web-search lol jira docker brew aws docker-compose adb sudo)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -180,3 +180,8 @@ fi
 if [ -f ~/.custom_zshrc ]; then
 	source ~/.custom_zshrc
 fi
+
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
+
+RPROMPT='$(oh_my_git_info)'
