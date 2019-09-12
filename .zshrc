@@ -153,7 +153,7 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export JAVA_HOME=`/usr/libexec/java_home -v '1.8*'`
 launchctl setenv JAVA_HOME $JAVA_HOME
 
-export NVM_DIR="/Users/reidknight/.nvm"
+export NVM_DIR="/Users/reid/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 DIRSTACKSIZE=9
