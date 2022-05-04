@@ -7,7 +7,7 @@ export ZSH=~/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussellnogit"
+ZSH_THEME=""
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,7 +51,7 @@ ZSH_THEME="robbyrussellnogit"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git oh-my-git mvn nyan redis-cli sbt scala web-search lol jira docker brew aws docker-compose adb sudo)
+plugins=(git mvn redis-cli sbt scala web-search lol jira docker brew aws docker-compose adb sudo yarn fasd)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -143,14 +143,31 @@ function Docker-Cleanup() {
   docker rm -f $(docker ps -aq)
   docker volume rm $(docker volume ls -qf dangling=true)
 }
+
+alias grd='cd "$(git rev-parse --show-toplevel)"'
+
+function GitRebaseCommit() {
+  grd
+  last_commit=$(echo -n $(git log -1 --pretty=%B | xargs))
+  read -q "REPLY?Previous commit: $last_commit. Rebase [y/N]? "
+  echo "\n"
+  if [[ "$REPLY" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+    git reset HEAD^
+    git add .
+    git commit -m "$last_commit"
+  else
+    echo "Bailing"
+  fi
+}
 alias dockerClean='Docker-Cleanup'
 
 alias lcm='echo -n $(git log -1 --pretty=%B | xargs) | pbcopy'
-alias grd='cd "$(git rev-parse --show-toplevel)"'
-alias grc='grd;last_commit=$(echo -n $(git log -1 --pretty=%B | xargs));git reset HEAD^;git add .;git commit -m "$last_commit"'
+alias grc='GitRebaseCommit'
+alias master='git switch master'
+alias git='hub'
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export JAVA_HOME=`/usr/libexec/java_home -v '1.8*'`
+export JAVA_HOME='/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home'
 launchctl setenv JAVA_HOME $JAVA_HOME
 
 export NVM_DIR="/Users/reid/.nvm"
@@ -177,11 +194,24 @@ if [ -f ~/.bash_profile ]; then
 	source ~/.bash_profile
 fi
 
-if [ -f ~/.custom_zshrc ]; then
-	source ~/.custom_zshrc
+if [ -f ~/.custom_copper_zshrc ]; then
+	source ~/.custom_copper_zshrc
 fi
 
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export ANDROID_HOME="/usr/local/share/android-sdk"
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+export ANDROID_AVD_HOME=$HOME/.android/avd
+export ANDROID_SDK="/usr/local/share/android-sdk"
+export ANDROID_NDK_REPOSITORY="/usr/local/share/android-ndk"
+export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
 
-RPROMPT='$(oh_my_git_info)'
+autoload -U promptinit; promptinit
+prompt pure
+
+export GEM_HOME=/Users/reid/.gem
+export PATH="$GEM_HOME/bin:$PATH"
+export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
+export PATH="${PATH}:$(python -c 'import site; print(site.USER_BASE)')/bin"

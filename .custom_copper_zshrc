@@ -1,0 +1,27 @@
+# AWS credentials and config location
+export AWS_SHARED_CREDENTIALS_FILE=~/dev/copper/.aws/credentials
+export AWS_CONFIG_FILE=~/dev/copper/.aws/config
+export AWS_SDK_LOAD_CONFIG=true
+
+function cu {
+  needPop=false
+
+  if [[ $(pwd) != ~/dev/copper ]]; then
+    needPop=true
+  fi;
+
+  pushd -q ~/dev/copper
+  ~/dev/copper/packages/cucmd/bin/run "$@"
+  if [ $needPop = true ]; then
+        popd -q
+  fi;
+}
+
+alias android='react-native run-android --main-activity SplashActivity'
+alias ios='react-native run-ios'
+alias podrick="echo 'No, this is patrick' && pushd -q $HOME/dev/copper/packages/app/ios; pod install; popd -q"
+
+# cu autocomplete setup
+CU_AC_ZSH_SETUP_PATH=/Users/reid/Library/Caches/@copperapp/cucmd/autocomplete/zsh_setup && test -f $CU_AC_ZSH_SETUP_PATH && source $CU_AC_ZSH_SETUP_PATH;
+
+source /Users/reid/Library/Caches/@copperapp/cucmd/copper_aliases
