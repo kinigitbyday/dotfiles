@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -208,10 +210,10 @@ export ANDROID_SDK="/usr/local/share/android-sdk"
 export ANDROID_NDK_REPOSITORY="/usr/local/share/android-ndk"
 export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
 
-autoload -U promptinit; promptinit
-prompt pure
-
 export GEM_HOME=/Users/reid/.gem
 export PATH="$GEM_HOME/bin:$PATH"
 export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
 export PATH="${PATH}:$(python -c 'import site; print(site.USER_BASE)')/bin"
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
