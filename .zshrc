@@ -215,6 +215,8 @@ export PATH="$GEM_HOME/bin:$PATH"
 export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
 export PATH="${PATH}:$(python -c 'import site; print(site.USER_BASE)')/bin"
 
+export NODE_OPTIONS="--max-old-space-size=8192"
+
 # place this after nvm initialization!
 autoload -U add-zsh-hook
 load-nvmrc() {
