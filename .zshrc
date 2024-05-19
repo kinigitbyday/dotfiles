@@ -1,3 +1,5 @@
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
@@ -168,7 +170,11 @@ alias grc='GitRebaseCommit'
 alias master='git switch master'
 alias git='hub'
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix nvm)/nvm.sh
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 export JAVA_HOME='/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home'
 launchctl setenv JAVA_HOME $JAVA_HOME
 
@@ -190,14 +196,10 @@ MAILCHECK=0
 MAIL=0
 
 eval $(thefuck --alias)
-source /usr/local/opt/chtf/share/chtf/chtf.sh
+source $(brew --prefix)/opt/chtf/share/chtf/chtf.sh
 
 if [ -f ~/.bash_profile ]; then
 	source ~/.bash_profile
-fi
-
-if [ -f ~/.custom_copper_zshrc ]; then
-	source ~/.custom_copper_zshrc
 fi
 
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
@@ -213,7 +215,6 @@ export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
 export GEM_HOME=/Users/reid/.gem
 export PATH="$GEM_HOME/bin:$PATH"
 export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
-export PATH="${PATH}:$(python -c 'import site; print(site.USER_BASE)')/bin"
 
 export NODE_OPTIONS="--max-old-space-size=8192"
 
@@ -239,5 +240,5 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
