@@ -50,7 +50,7 @@ export ZSH=~/.oh-my-zsh
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git mvn redis-cli sbt scala web-search lol jira docker brew aws docker-compose adb sudo yarn fasd)
+plugins=(git mvn redis-cli sbt scala web-search lol jira docker brew aws docker-compose sudo yarn fasd)
 
 source $ZSH/oh-my-zsh.sh
 
