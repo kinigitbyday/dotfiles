@@ -1,7 +1,5 @@
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -162,7 +160,7 @@ alias dockerClean='Docker-Cleanup'
 
 alias lcm='echo -n $(git log -1 --pretty=%B | xargs) | pbcopy'
 alias grc='GitRebaseCommit'
-alias master='git switch master'
+alias main='git switch master 2>/dev/null || git switch main'
 alias git='hub'
 
 source $(brew --prefix nvm)/nvm.sh
@@ -234,10 +232,27 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+
+alias rk='node --env-file ~/dev/personal/rk/.env ~/dev/personal/rk/bin/run'
+
+function coast {
+  pushd ~/dev/coast/core-api > /dev/null
+  ~/dev/coast/core-api/packages/scripts/bin/run $@
+  popd > /dev/null
+}
+COAST_AC_ZSH_SETUP_PATH=/Users/reid/Library/Caches/@coast/core-api-scripts/autocomplete/zsh_setup && test -f $COAST_AC_ZSH_SETUP_PATH && source $COAST_AC_ZSH_SETUP_PATH;
+
+alias nb='rk dev:git:switch-shortcut-branch --configFile ~/dev/personal/rk/.shortcut-config.json'
+
+export GOPATH="$HOME/go"
+PATH="$GOPATH/bin:$PATH"
+
+eval "$(starship init zsh)"
+
+# rk autocomplete setup
+RK_AC_ZSH_SETUP_PATH=/Users/reid/Library/Caches/rk/autocomplete/zsh_setup && test -f $RK_AC_ZSH_SETUP_PATH && source $RK_AC_ZSH_SETUP_PATH;
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
